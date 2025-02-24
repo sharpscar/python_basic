@@ -100,3 +100,28 @@
         empty_drink 재고가 떨어졌을 경우 break
 
 '''
+
+# for i in range(10):
+#     print()
+#     print("바깥쪽 반복문 i는 {}  입니다.".format(i))
+#     for j in range(10):
+#
+#         print(j,end="")
+
+'''구구단을 외자 2단을 출력하라 '''
+# num =2
+# for i in range(1,10):
+#     print(f"{num} * {i} = {num*i}")
+
+''' 구구단을 외자 2~9 '''
+
+# for i in range(2,10):
+#     for j in range(1,10):
+#         print (f"{i} x {j} = {i*j}")
+
+for i in range(1,10):
+    for j in range(2,10):
+        print("{} x {} = {}".format(j,i,i*j), end="\t")
+        if j >= 9:
+            print()
+
