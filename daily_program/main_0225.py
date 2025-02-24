@@ -114,14 +114,37 @@
 #     print(f"{num} * {i} = {num*i}")
 
 ''' 구구단을 외자 2~9 '''
-
+#
 # for i in range(2,10):
 #     for j in range(1,10):
-#         print (f"{i} x {j} = {i*j}")
+#         print (f"{j} x {i} = {j*i:>2}", end="\t")
 
-for i in range(1,10):
-    for j in range(2,10):
-        print("{} x {} = {}".format(j,i,i*j), end="\t")
-        if j >= 9:
-            print()
+# for i in range(1,10):
+#     print()
+#     for j in range(2,10):
+#         print("{} x {} = {}".format(j,i,i*j), end="\t")
+#
+
+'''별찍어봅시다. '''
+# print("*")
+# print("*")
+# print("*")
+# print("*")
+# print("*")
+# print("*")
+# for i in range(6):
+#     print("*")
+#     # print("*"*i)
+
+''' 별 10개를 증가하며 '''
+for i in range(10):
+    print("*"*i)
+''' 별 10개를 감소하며 '''
+# for i in range(10,0, -1):
+#     print("*"*i)
+
+''' 별을 우측 정렬해라 10-i'''
+for i in range(10):
+    # print("*"*i)
+    print(" "*(10-i),"*"*i)
 
