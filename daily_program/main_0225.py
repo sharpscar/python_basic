@@ -137,14 +137,24 @@
 #     # print("*"*i)
 
 ''' 별 10개를 증가하며 '''
-for i in range(10):
-    print("*"*i)
-''' 별 10개를 감소하며 '''
-# for i in range(10,0, -1):
+# for i in range(10):
 #     print("*"*i)
+''' 별 10개를 감소하며 우측정렬한다.'''
 
 ''' 별을 우측 정렬해라 10-i'''
-for i in range(10):
-    # print("*"*i)
-    print(" "*(10-i),"*"*i)
+# for j in range(1, num+1):
+#     # print("*"*i)
+#     print(" "*(num-j),"*"*j)
+#
+# for i in range(num-1,0, -1):
+#     print(" "*(num-i), "*"*i)
+num = 16
+'''별로 삼각형을 찍어보자 (역삼각형)'''
+for i in range(num):
+    if i %2 !=0:
+        print(" "*((num-i)//2),"*"*i)
 
+'''별로 삼각형을 찍어보자 (역삼각형)'''
+for i in range(num, 0, -1):
+    if i %2 !=0:
+        print(" "*((num-i)//2),"*"*i)
