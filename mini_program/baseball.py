@@ -19,7 +19,7 @@ def get_input():
 print(ran_list)
 
 # 사용자 입력을 10회 받는다 입력은 정수 정수 정수 형식
-for i in range(4):
+for i in range(10):
     user_input_list = get_input()
 # 각 입력받은 값들을 생성한 랜덤생성한 숫자배열 과  비교
     strike = 0
@@ -41,7 +41,7 @@ for i in range(4):
     #만약 스트라이크가 3이상인경우 게임 중지
     if strike ==3:
         print("3진아웃 입니다. You win")
-        continue
+        break
 
     print("strike는 {},ball은 {} ".format(strike, ball))
 

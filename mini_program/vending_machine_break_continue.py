@@ -24,9 +24,16 @@ change_money =0 #거스름돈
 while switch:
 
     user_money = input("돈을 넣으세요  =>")
+    #숫자가 아닐경우 무시하는 코드를 넣자
     change_money = change_money+int(user_money)
 
     user_select = input("메뉴를 고르세요 [팹시콜라(800), 코카콜라(900), 포카리(700), 물(500)]  => ")
+
+    # 유저의 입력을 받아서 drink딕셔너리에 키를 검색 해당하는 문자열 하나라도 있으면 해당 키의 값을 가져온다.
+    for drink in drinks :
+        if drink.startswith(user_select):
+            user_select = drink
+
     print("잔액은 {} 입니다. 선택하신 음료는 {}입니다. ".format(change_money, user_select))
 
 
