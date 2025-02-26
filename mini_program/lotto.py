@@ -41,18 +41,23 @@ auto=True
     buyer_number = [int(i) for i in buyer_number.split(",")]
     입력을 하나씩 받고 총 6개의 숫자를 리스트에 넣는다. 
 '''
+
 for i in range(6):
     input_str = input("로또번호 하나씩 입력해주세요 ")
+    # if type(input_str) !="int":
+    #     # int가 아니니 다시 받아야한다.
+
     input_int = int(input_str)
     user_list[i] = input_int
 
+# 중복체크
+for idx,val  in enumerate(user_list):
+    number_cnt = user_list.count(val)
+    if number_cnt > 1:
+        print("중복된값이 있습니다 다시입력하세요")
+
 print(f"넣은 번호는 {user_list}입니다.")
 auto_ = input("자동을 돌리시겠습니까? y/n")
-
-#중복체크
-if len(set(user_list)) != 6 :
-    print("로또 숫자는 6개입니다. 다시입력하세요 ")
-
 
 while auto :
     # 컴퓨터 랜덤 넘버 생성 6+1
@@ -85,6 +90,8 @@ while auto :
     if auto_ == "y":
         auto = True
         time.sleep(2)
+    elif auto_ == "q":
+        break
     else:
         auto = False
 
