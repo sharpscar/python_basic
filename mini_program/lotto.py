@@ -56,6 +56,14 @@ for idx,val  in enumerate(user_list):
     if number_cnt > 1:
         print("중복된값이 있습니다 다시입력하세요")
 
+        for i in range(6):
+            input_str = input("로또번호 하나씩 (다시!!) 입력해주세요 ")
+            # if type(input_str) !="int":
+            #     # int가 아니니 다시 받아야한다.
+
+            input_int = int(input_str)
+            user_list[i] = input_int
+
 print(f"넣은 번호는 {user_list}입니다.")
 auto_ = input("자동을 돌리시겠습니까? y/n")
 
