@@ -26,6 +26,7 @@ import time
 9 랜덤 쓰되 sample쓰지마라 .
 
 10 로또 번호 출력시 오름차순
+# 중복체크
 
 '''
 
@@ -34,35 +35,51 @@ cnt = 1
 buyer_num_dict = {}
 str_ =""
 switch = 1
-user_list = [0,0,0,0,0,0]
+user_list = []
 auto=True
-'''
-    buyer_number = input("로또번호를 6개 입력하세요 , 형식 자동은 '자동' 입력 >>")
-    buyer_number = [int(i) for i in buyer_number.split(",")]
-    입력을 하나씩 받고 총 6개의 숫자를 리스트에 넣는다. 
-'''
+duplication_cnt = 0
 
-for i in range(6):
+validation_list = True
+
+# false 일때 벗어난다 - 받은 입력이  list [int,int, int,int,int, int] 을 만족하면 조건 변수에 false를 입력하겠다. validation_list
+
+validate_cnt = 0
+
+#일단 입력을 계속 받아 until user_list의 크기가 6이 될때까지
+while validation_list:
     input_str = input("로또번호 하나씩 입력해주세요 ")
-    # if type(input_str) !="int":
-    #     # int가 아니니 다시 받아야한다.
 
-    input_int = int(input_str)
-    user_list[i] = input_int
+    #만약 숫자이며 값의 범위가
+    if input_str.isdigit():
+        input_int = int(input_str)
 
-# 중복체크
-for idx,val  in enumerate(user_list):
-    number_cnt = user_list.count(val)
-    if number_cnt > 1:
-        print("중복된값이 있습니다 다시입력하세요")
+        if 0 < input_int < 46 :
+            user_list.append(input_int)
+        else:
+            print("1~45까지의 숫자만 입력 해야합니다 다시입력하세요 ")
+            user_list = []
+    else:
+        print("입력형식을 확인하세요  다시 입력 하세요")
+        user_list = []
 
-        for i in range(6):
-            input_str = input("로또번호 하나씩 (다시!!) 입력해주세요 ")
-            # if type(input_str) !="int":
-            #     # int가 아니니 다시 받아야한다.
+    # i 는 1~45사이의 값이어야 한다.
 
-            input_int = int(input_str)
-            user_list[i] = input_int
+
+    # 입력받은 숫자가 6개이고 리스트내의 숫자가 모두 int이며 1~45까지의 숫자인 경우 validation_list에 false를 넣어 입력을 벗어난다.
+    if len(user_list) <6 :
+        for i in user_list :
+            # print(f"유저 입력의 갯수는 {len(user_list)}",type(i))
+            duplication_cnt = user_list.count(i)
+            if duplication_cnt > 1:
+                print("중복된값이 있습니다 다시입력하세요")
+                user_list = []
+
+    else:
+        # 인트로 배열을 6개 채웠을때
+        validation_list = False
+    # 값의 범위
+
+#입력 값 검증 입력값이 1~45까지만 가능하다 음수 안되고 소수점 안되고
 
 print(f"넣은 번호는 {user_list}입니다.")
 auto_ = input("자동을 돌리시겠습니까? y/n")
@@ -88,7 +105,7 @@ while auto :
     elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 5 :
         str_ = "3등입니다."
     else :
-        print("다음기회에")
+        print("꽝입니다. 다음기회에...")
 
     str_ += f"{cnt} 회차 당첨번호 {lotto_num_dict[cnt][0]} 입니다.// 보너스번호는 {lotto_num_dict[cnt][1]}입니다. "
 
