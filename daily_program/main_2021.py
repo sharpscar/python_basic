@@ -60,7 +60,7 @@ new_dict = {
 pick_one_character_from_dict = new_dict["Test"][2][1]
 # print(pick_one_character_from_dict)
 
-'''  File "/home/scar/PycharmProjects/PythonProject/main_2021.py", line 65, in <module>
+'''  File "/home/scar/PycharmProjects/PythonProject/main_0221.py", line 65, in <module>
     print(new_dict[i][j])
           ~~~~~~~~~~~^^^
 TypeError: list indices must be integers or slices, not str

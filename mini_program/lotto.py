@@ -56,15 +56,13 @@ while validation_list:
         # i 는 1~45사이의 값이어야 한다.
         if 0 < input_int < 46 :
             user_list.append(input_int)
+            print(f"입력하신 번호는 {user_list}입니다.")
         else:
             print("1~45까지의 숫자만 입력 해야합니다 다시입력하세요 ")
             user_list = []
     else:
         print("입력형식을 확인하세요  다시 입력 하세요")
         user_list = []
-
-
-
 
     # 입력받은 값 중복 체크
     if len(user_list) <6 :
@@ -84,6 +82,8 @@ while validation_list:
 
 print(f"넣은 번호는 {user_list}입니다.")
 auto_ = input("자동을 돌리시겠습니까? y/n")
+auto_ = auto_.lower()
+
 if auto_ =="y":
     auto_ = True
 else:
@@ -108,22 +108,35 @@ while auto :
 
         # 유저번호가 6개 일치 1등, 보너스 1개가 일치하고 유저 번호 5개가 동일하다면 2등  유저번호 5개만 동일하다면 3등
         if len(set(lotto_num_dict[cnt][0]).intersection(buyer_number)) == 6 :
+            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+            print(f"구매하신 번호는 {user_list} / 같은 숫자 번호 6개 입니다.  ")
             str_ ="로또  1등 20억당첨입니다."
             print(str_)
+            exit()
         elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 5 and len(set([lotto_num_dict[cnt][1]]).intersection(buyer_number)) == 1:
+            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+            print(f"구매하신 번호는 {user_list} / 같은 숫자 번호 5개 입니다.  ")
             str_ = "2등입니다. 당첨금은 5천만원입니다. "
             print(str_)
         elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 5 :
+            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+            print(f"구매하신 번호는 {user_list} / 같은 숫자 번호 5개 입니다.  ")
             str_ = "3등입니다. 당첨금은 150만원 입니다.   "
             print(str_)
         elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 4 :
+            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+            print(f"구매하신 번호는 {user_list} / 같은 숫자 번호 4개 입니다.  ")
             str_ = "4등입니다. 당첨금은 5만원 입니다."
             print(str_)
         elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 3 :
+            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+            print(f"구매하신 번호는 {user_list} / 같은 숫자 번호 3개 입니다.  ")
             str_ = "5등입니다. 당첨금은 5천원 입니다."
             print(str_)
+
         else :
-            print(f"{cnt} 회차 당첨번호 {lotto_num_dict[cnt][0]} 입니다.// 보너스번호는 {lotto_num_dict[cnt][1]}입니다.")
+            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+            print(f"구매하신 번호는 {user_list} / 같은 숫자 번호 0개 입니다.  ")
             print("꽝입니다. 다음기회에...")
             time.sleep(1)
 
