@@ -47,5 +47,10 @@ def crawling_lotto(count):
         'bonus_number': bonus_number
     }
 
-result = crawling_lotto(2)
-print(result)
+# result = crawling_lotto(2)
+def get_max_count():
+    url = 'https://dhlottery.co.kr/common.do?method=main'
+    html = requests.get(url).text
+    soup = BeautifulSoup(html, 'lxml')
+    max_count = int(soup.find('strong', id='lottoDrwNo').text)
+    return max_count

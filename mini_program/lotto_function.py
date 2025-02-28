@@ -99,6 +99,11 @@ else:
     auto_ = False
 
 # 자동적으로 난수를 생성할지 :auto_generate_random_number
+def print_out(lotto_num_dict,atari_num):
+    print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
+    print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 {atari_num}개 입니다,  ")
+
+
 while auto_generate_random_number :
     # 컴퓨터 랜덤 넘버 생성 6+1
     lotto = (list(range(1,46)))
@@ -108,37 +113,33 @@ while auto_generate_random_number :
     lotto_num.sort()
     lotto_num_dict[cnt] = [lotto_num , lotto_bonus]
     buyer_number = user_input_list
-
+    atari_num = [6,5,4,3]
     #구매자 번호를 딕션에 넣는다.
     buyer_num_dict[cnt] = buyer_number
 
     if auto_:
 
         # 유저번호가 6개 일치 1등, 보너스 1개가 일치하고 유저 번호 5개가 동일하다면 2등  유저번호 5개만 동일하다면 3등
-        if len(set(lotto_num_dict[cnt][0]).intersection(buyer_number)) == 6 :
-            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
-            print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 6개 입니다.  ")
+        if len(set(lotto_num_dict[cnt][0]).intersection(buyer_number)) == atari_num[0] :
+            print_out(lotto_num_dict,atari_num[0])
             str_ ="로또  1등 20억당첨입니다."
             print(str_)
             exit()
-        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 5 and len(set([lotto_num_dict[cnt][1]]).intersection(buyer_number)) == 1:
-            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
-            print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 5개 입니다.  ")
+        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == atari_num[1] and len(set([lotto_num_dict[cnt][1]]).intersection(buyer_number)) == 1:
+            print_out(lotto_num_dict,atari_num[1])
             str_ = "2등입니다. 당첨금은 5천만원입니다. "
             print(str_)
-        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 5 :
-            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
-            print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 5개 입니다.  ")
+        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == atari_num[1] :
+            print_out(lotto_num_dict,atari_num[1])
             str_ = "3등입니다. 당첨금은 150만원 입니다.   "
             print(str_)
-        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 4 :
-            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
-            print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 4개 입니다.  ")
+        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == atari_num[2] :
+            print_out(lotto_num_dict,atari_num[2])
             str_ = "4등입니다. 당첨금은 5만원 입니다."
             print(str_)
-        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == 3 :
-            print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
-            print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 3개 입니다.  ")
+        elif len(set(lotto_num_dict[cnt][0]).intersection(buyer_number))  == atari_num[3] :
+            print_out(lotto_num_dict,atari_num[3])
+
             str_ = "5등입니다. 당첨금은 5천원 입니다."
             print(str_)
 
@@ -146,12 +147,12 @@ while auto_generate_random_number :
             print(f"{cnt}회차 번호{lotto_num_dict[cnt][0]} 입니다.|보너스번호는 {lotto_num_dict[cnt][1]}입니다. ")
             print(f"구매하신 번호는 {user_input_list} / 같은 숫자 번호 0개 입니다.  ")
             print("꽝입니다. 다음기회에...")
-            time.sleep(1)
+            # time.sleep(1)
 
     else:
         #로또 담첨번호 출력
         print(f"{cnt} 회차 당첨번호 {lotto_num_dict[cnt][0]} 입니다.// 보너스번호는 {lotto_num_dict[cnt][1]}입니다.")
-        time.sleep(1)
+        # time.sleep(1)
 
     str_ =""
     cnt += 1

@@ -11,36 +11,22 @@ class range(object)
  |
 
 '''
-from curses.ascii import isdigit
 
-#
-# def my_num(num):
-#
-#     for i in range(num) :
-#         if i % 2 == 0 :
-#
-#
-#     return r
+a = ""
+b = ""
+c =[]
+d={}
+cnt = 0
 
-a = [1,2,3]
-b = 0
-c = 0
-d = 0
+def get_input():
+    while cnt < 2:
+        input_text = input("날라리 아무거나 입력해 ")
+        if cnt == 0 :
+            a = input_text
+        elif cnt == 1:
+            b = input_text
+        cnt= cnt+1
 
-
-
-a = input("첫번째 변수를 입력하세요")
-# b = input("두번째 변수를 입력하세요")
-
-if not a.isdigit :
-    print("재입력하세요 숫자를 넣어야 합니다.")
-    input()
-elif int(a) < 0:
-    print("재입력하세요 양수를 넣어야 합니다.")
-    input()
-else:
-    a = int(a)
-    c = a*a*3.14
-
-print(f"원의 면적은  {c} 입니다.")
-
+# 만약 초기화 번호를 인수로 넣어보면
+get_input()
+print(a,b)
