@@ -144,17 +144,52 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120808
 #     m = means(i)
 #     print(f"{i}의 약수{m}.")
 
+# 예제 29 ->34
+# def my_fun(n):
+#     measure_list = []
+#     for i in range(2,n):
+#         if n % i == 0:
+#             #나누어 떨어지기때문에 소수가 아님 (약수
+#             measure_list.append(i)
+#     if len(measure_list) == 0:
+#         return n
+#
+# for i in range(2,101):
+#     answer = my_fun(i)
+#     if answer is not None:
+#         print (answer, end=" ")
 
-def my_fun(n):
-    my_list=[]
-    for i in range(2,n+1):
+def my_sol():
+    s = 1
+    n = 1
 
-        if n % i == 0:
+    for i in range (1,11):
+        if i == 1:
             pass
         else:
-            my_list.append(i)
-    return my_list
+            n = n+i
+            s = s+n
+        #만약에 숫자를 저장하지 않고 문자열로 수식을 저장한다면?
+        # n = str(i) + "+"+ n
+        # s = n + "+" + s
+        # print(" i는 ",i ,"       ", end="")
+        # print(n, end="")
+        # print("     "+s)
 
-l = my_fun(100)
-print(l)
-# print(my_fun(100))
+
+    print(s)
+
+
+my_sol()
+#
+# def my_sol():
+#
+#     for i in range(2,10):
+#         # 다다단!
+#
+#         print("# ",end="")
+#         for j in range(1,10):
+#             print(f"{i} x {j} = {i*j}", end="\t")
+#         print()
+#
+# my_sol()
