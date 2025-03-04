@@ -39,9 +39,10 @@ https://school.programmers.co.kr/learn/courses/30/lessons/120923
 # print(r)
 ''' 
 참고 https://designingdata.tistory.com/68
+아무래도 소스를 갈아 엎어야 하는 기운이 느껴진다....
 '''
 def solution(numlist, n):
-
+    new_list = []
     answer = []
 
     # 만약 주어진 배열의 갯수가 짝수개일땐 0요소를 추가해준다. 그리고 모든 작업이 끝나면 제거한다.
@@ -49,11 +50,16 @@ def solution(numlist, n):
         numlist.append(0)
 
     # 주어진 매개변수에 찾는 값이 없는경우 근사값을 최우선 순위에 넣어야한다.
-
-    n_index = numlist.index(n) #30은 찾을수 없다.
-
+    for n_ in numlist:
+        new_list.append(abs(n_ - n))
+    n_index = (new_list.index(min(new_list)))
+    n = numlist[n_index]
+    print(n)
+    n_index = numlist.index(n)
+    print(n_index)
     increase_index = [i for i in range(1,len(numlist)-n_index)]
     max_increase=len(numlist)-n_index-1
+    print(max_increase)
 
     for i in range(max_increase):
         # print(f"i값은         {i}")
