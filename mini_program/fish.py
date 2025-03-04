@@ -22,30 +22,28 @@ def get_current_money():
         "게임 종료 {turn}째에 끝났습니다. "
     return money
 
-def select_fish(money):
-    try:
-        fish = input("물고기를 선택하세요 1.고등어(10) 2. 도미(100) 3. 참치(1000) ")
-        price = 0
-        quantity = int(input("몇마리 살지 선택하세요"))
-        if fish == '1':
-            fish = '고등어'
-            price =10
-        elif fish == '2':
-            fish = '도미'
-            price =100
-        elif fish == '3':
-            fish = '참치'
-            price = 1000
-        else:
-            input("입력을 잘못하셨습니다.")
-            input()
-        int(quantity)
-        total =  price * quantity
-        # money= money - total
-    except:
-        pass
+# 사용자 입력을 받는 함수
+def input_fish():
+    fish = input("물고기를 선택하세요 1.고등어(10) 2. 도미(100) 3. 참치(1000) ")
+    price = 0
+    f_quantity = int(input("몇마리 살지 선택하세요"))
+    if fish == '1':
+        fish = '고등어'
+        price =10
+    elif fish == '2':
+        fish = '도미'
+        price =100
+    elif fish == '3':
+        fish = '참치'
+        price = 1000
+    else:
+        input("입력을 잘못하셨습니다.")
+        input()
+    f_quantity = int(f_quantity)
+    total = price * f_quantity
+    # money= money - total
+    return [fish, f_quantity, total]
 
-    return [fish,quantity, total]
 
 '''
  물고기를 추가할때 {'sellable':'False','고등어 ': 1 , stat : 0} 이런식으로 추가  stat은 4이상 올라갈수 없다.'''
@@ -79,12 +77,6 @@ def check_sellable(f_water_tank):
     return sellable_fish
 
 
-'''
-water_tank 안에 sellable이 True 이고 생선명이 '고등어'인 요소들의 [quantity,가격] 합산 .
-1. 해당 요소들을 가져와서 다른 dict로 만든다. 
-2. 해당 요소들을 delete한다. 
-3. 돈을 판매한 가격과 합산한다.  
-'''
 def sell_fish(f_water_tank, money):
 
     f_total = 0
@@ -107,23 +99,28 @@ while turn <100:
     # 목표 금액에 도달하면 게임이 종료한다.
     get_current_money()
 
+
+    select_fish = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000)")
+    select_quantity = int(input("몇마리 구매?"))
     if money > 10 :
         # 구매할 물고기, 수량을 받는다. 그리고 돈에 서 빼야한다.
-        fish, quantity, selectd_total = select_fish(money)
+
+        fish, quantity, selectd_total = input_fish()
+
+        #수조의 물고기가 몇마리인지 체크해야함 10마리 이하로만 유지가 가능
+        fish_count = 0
+        if len(water_tank)>0 :
+            for f in water_tank:
+                fish_count += f['수량']
+                print(f[f"물고기 수량 {fish_count}"]) # 이 수량이 10보다 크면 구매 불가
         if selectd_total <= money:
             water_tank,money = buy_fish(water_tank,fish, quantity,money,selectd_total)
 
         else:
             print("돈이 부족합니다. 구매하지 못했습니다.")
 
-    #현재 돈
-    print(f"돈은 {money}")
-
-    for w in water_tank:
-        print(w)
-
-    # 스테이터스를 보고싶다면 스테이터스 안내
-
+    for fish in water_tank:
+        print(fish)
     # 고등어 수량을 체크한다.
     water_tank = check_fish_is_big(water_tank,'고등어',3)
     # 도미 수량을 체크한다.
@@ -148,6 +145,8 @@ while turn <100:
 
         # 판매 안내를 한다.{'sellable':'True','생선명':f_fish 'quantity': 1 , stat : 0} 인 애들이 몇개인지 보여주고 생선명이 같은애들의 숫자를 합산한다.
     # 판매를 한다.
+    for w in water_tank:
+        print(w)
     '''
     water_tank 안에 sellable이 True 이고 생선명이 '고등어'인 요소들의 [quantity,가격] 합산 .
     1. 해당 요소들을 가져와서 다른 dict로 만든다. 
