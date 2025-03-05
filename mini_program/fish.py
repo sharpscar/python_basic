@@ -43,12 +43,8 @@ def input_fish():
     total = price * f_quantity
     # money= money - total
     return [fish, f_quantity, total]
-[{'sellable':'False','고등어 ': 10 , stat : 0} ,
- {'sellable':'False','도미 ': 3 , stat : 0} ,
- {'sellable':'False','도미  ': 7 , stat : 0} ]
 
-[{'고등어':1},{}] items()
-[[],[],[],[],[]]
+
 '''
  물고기를 추가할때 {'sellable':'False','고등어 ': 1 , stat : 0} 이런식으로 추가  stat은 4이상 올라갈수 없다.'''
 def buy_fish(f_water_tank,f_fish, f_quantity, money, selected_total):
