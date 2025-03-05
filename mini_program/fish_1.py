@@ -191,3 +191,17 @@ while cnt<100:
 
         print(f"{cnt} 회 턴 종료합니다.")
         cnt+=1
+
+
+status = {
+    'water_tank': [],
+    'account': 0,
+    'fish_info': ['고등어',5],
+    'wt_count': 1,
+    'pollution': 100,
+    'simple_wt_info': {
+        '고등어': 0,
+        '도미': 0,
+        '참치': 0
+    }
+}
