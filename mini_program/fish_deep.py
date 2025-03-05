@@ -5,7 +5,7 @@ pollution=0
 is_paid=None
 is_cleaned=None
 water_tank = []
-limit_water_tank = 10
+
 
 '''
 ## status 변수 
@@ -36,7 +36,7 @@ status = {
 '''
 status = {
     'water_tank': [],
-    'account': 0,
+    'account': 100,
     'fish_info': [],
     'wt_count': 1,
     'pollution': 100,
@@ -51,15 +51,18 @@ status = {
 
 
 # 현재 수조의 빈공간을 계산해서 정수로 반환  매개변수 limit는 현재 보유하는 수조 *10 , wt, 구매하려는 물고기숫자
-def get_wt_empty_space(f_limit, wt ,quantity):
+def get_wt_empty_space(status):
+    f_limit = status['wt_count'] * 10
+    wt = status['water_tank']
+    quantity = status['fish_info'][1]
     # 구매하려는 물고기 숫자가 수조에 남은 공간보다 크면 구매할수 없다.
     if f_limit - len(wt) >= quantity:
         print(f"수조의 빈공간을 계산 { f_limit - len(wt)}")
         return f_limit - len(wt)
 
 
-def buy_fish(water_tank,account):
-    status['water_tank'] =  water_tank
+def buy_fish(status):
+    status['water_tank'] = []
     status['account'] = account
     print(f"현재 자산은 {status[account]} 입니다.")
     select_fish = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000) 숫자만 입력하세요 ")
@@ -74,7 +77,7 @@ def buy_fish(water_tank,account):
     if status['fish_info'][1] > 11:
         print("10마리 이상은 안됩니다.")
         status['fish_info'][1] = int(input("몇마리 구매?"))
-    price = 0
+
     if select_fish == '1':
         # status['fish_info'] = [어종,마릿수,가격,총가격]
         status['fish_info'][0] = '고등어'
@@ -86,22 +89,29 @@ def buy_fish(water_tank,account):
         status['fish_info'][0] = '참치'
         status['fish_info'][2] = 1000
     else:
-        status['fish_info'][0] = '고등어'  # 디폴트값으로 이거라도 넣었다. 물고기가 아닌것이 들어가면 개발자가 몹시 불쾌해진다.
+        # 디폴트값으로 이거라도 넣었다. 물고기가 아닌것이 들어가면 개발자가 몹시 불쾌해진다.
+        status['fish_info'][0] = '고등어'
         status['fish_info'][2] = 10
+
     # 구매 조건에 부합하면 구매 처리 1.현재 자산, 2 수조 상태
+
+    # 총액 = 생선가격 * 생선마릿수
     status['fish_info'][3] = status['fish_info'][2] * status['fish_info'][1]
-    # 빈공간을 계산하는 함수를 구현해야함
-    is_empty_space = get_wt_empty_space(status['wt_count']*10, status['water_tank'],status['fish_info'][1])
+
+    # 빈공간을 계산하는 함수
+    is_empty_space = get_wt_empty_space(status)
 
     # 기본 수조는 10 - 빈공간이 구매하려는 고기수보다 클때만 구매가능
     if is_empty_space :
-        if status['fish_info'][3] <= status['accountunt']:
-            for q in range(status['fish_info'][2]):
+        if status['fish_info'][3] <= status['account']:
+            #[어종,마릿수,가격,총가격]
+            for q in range(status['fish_info'][1]):
                 # 수조에 들어가는 물고기 정보는 ['어종',포만도:int,'판매가능여부']이다. fish 정보 프로퍼티와 혼동되면 큰일남
                 status['water_tank'].append([status['fish_info'][0], 0, False])
             print(f"어항상태 {len(status['water_tank'])} / {status['wt_count']*10} ")
             status['account'] = status['account'] - status['fish_info'][3]
 
+    return status
     # 총 유저가 선택한 물고기종류*수량 = 지불하려는 비용
 
 while cnt<100:
@@ -114,7 +124,9 @@ while cnt<100:
 
     if user_input == "구매":
         #구매
-        status['water_tank'],status['account'] = buy_fish(status['water_tank'],status['account'])
+        status = buy_fish(status)
+
+    
     # if user_input == "먹이":
     #     #먹이주기
     #     pass
