@@ -19,6 +19,7 @@ def buy(f_water_tank,f_fish,f_total_price,f_money,f_select_quantity):
 while cnt<100:
     if goal<money:
         print(f"{cnt}턴 만에 승리하였습니다. ")
+        break
 
     user_input = input("입력 예시> 구매, 상태, 엔터 ) ")
 
@@ -86,6 +87,12 @@ while cnt<100:
     # 판매 가능한 고기가 있으면 물고기종류와 갯수를 표시하고 판매의사를 묻는다.
     sallable_list = []
     total = 0 #판매대금이 될것이다. 반복할때마다 리셋되는게 맞겠지
+    f_go_cnt = 0
+    f_do_cnt = 0
+    f_ch_cnt = 0
+    full_go = 0
+    full_do = 0
+    full_ch = 0
     for w_ in water_tank:
         if w_[2]== True:
             sallable_list.append(w_)
@@ -93,7 +100,19 @@ while cnt<100:
     if sallable_list:
         # 표시
         for s in sallable_list:
-            print(s[0])
+
+            if s[0] == "고등어":
+                f_go_cnt += 1
+                full_go = s[1]
+            if s[0] == "도미":
+                f_do_cnt += 1
+                full_do = s[1]
+            if s[0] == "참치":
+                f_ch_cnt += 1
+                full_ch = s[1]
+        print(f"물고기 종류:고등어는 {f_go_cnt}마리{"🐡" * f_go_cnt}  먹이는 {full_go}")
+        print(f"물고기 종류:도미는 {f_do_cnt}마리{"🐠" * f_do_cnt}  먹이는{full_do}")
+        print(f"물고기 종류:참치는 {f_ch_cnt}마리{"🐟" * f_ch_cnt}  먹이는{full_ch}")
             #sallable_list에 있는 모든 물고기의 값을 계산해야한다.
         '''
         이걸 보고 고등어 , 도미, 참치 로시작하는 리스트가 몇개인지 세고 
@@ -143,6 +162,7 @@ while cnt<100:
         full_do=0
         full_ch=0
         print(f"현재 수조, 소지금액 상태입니다. \t 소지금 {money}원 ")
+        print("--------------------------------------------")
         for w in water_tank:
             if w[0] == "고등어":
                 f_go_cnt +=1
@@ -153,9 +173,11 @@ while cnt<100:
             if w[0] == "참치":
                 f_ch_cnt +=1
                 full_ch = w[1]
-        print(f"물고기 종류:고등어는 {"🐡"*f_go_cnt}{f_go_cnt}마리  먹이는 {full_go}")
-        print(f"물고기 종류:도미는 {"🐠"*f_do_cnt}{f_do_cnt}마리  먹이는{full_do}")
-        print(f"물고기 종류:참치는 {"🐟"*f_ch_cnt}{f_ch_cnt}마리  먹이는{full_ch}")
+        print(f"물고기 종류:고등어는 {f_go_cnt}마리{"🐡"*f_go_cnt}  먹이는 {full_go}")
+        print(f"물고기 종류:도미는 {f_do_cnt}마리{"🐠"*f_do_cnt}  먹이는{full_do}")
+        print(f"물고기 종류:참치는 {f_ch_cnt}마리{"🐟"*f_ch_cnt}  먹이는{full_ch}")
+        print("--------------------------------------------")
+
 
 
     if user_input == "":
