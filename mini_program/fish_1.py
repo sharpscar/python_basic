@@ -11,7 +11,7 @@ def buy(f_water_tank,f_fish,f_total_price,f_money,f_select_quantity):
     global money
     for q in range(f_select_quantity):
         f_water_tank.append([f_fish,0,False])
-    print(f"어항상태 {f_water_tank}")
+    print(f"어항상태 {len(f_water_tank)} /10")
     money = f_money- f_total_price
     return [f_water_tank, money]
 
@@ -25,6 +25,9 @@ while cnt<100:
         print(f"현재 자산은 {money} 입니다.")
         select_fish  = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000)")
         select_quantity = int(input("몇마리 구매?"))
+        if select_quantity > 11:
+            print("10마리 이상은 안됩니다.")
+            select_quantity = int(input("몇마리 구매?"))
         price = 0
         if select_fish == '1':
             fish = '고등어'
@@ -43,17 +46,16 @@ while cnt<100:
         #구매 조건에 부합하면 구매 처리 1.현재 자산, 2 수조 상태
         total_price = price * select_quantity
 
-        if total_price <= money:
-            # 수조의 물고기가 10마리 이하이다.
-            if len(water_tank) == 9:
-                print("경고경고 수조가 비좁아요 10마리 이상은 구매 불가 현재 9마리입니다.")
-            if len(water_tank) == 10:
-                print("경고경고 수조가 비좁아요 10마리 이상은 구매 불가 더이상 구매불가합니다.")
-            if len(water_tank) < 10 :
-                # 조건을 만족하면 구매!
+        # 좌변에 빈자리 (10-현재 물고기수) >   사려는 갯수 이래야 구매 가능하도록!
+        if 10-len(water_tank) >= select_quantity:
+        # 조건을 만족하면 구매!
+            if total_price <= money:
                 water_tank, money = buy(water_tank,fish,total_price,money, select_quantity)
+            else:
+                print("돈이 부족합니다.")
         else:
-            print("돈이 부족합니다.")
+            print(water_tank)
+            print("물고기가 너무 많아요")
 
 
 
@@ -71,7 +73,7 @@ while cnt<100:
             limit = 12
             if w[1] == limit:
                 w[2] = True
-    
+
     # 판매 가능한 고기가 있으면 물고기종류와 갯수를 표시하고 판매의사를 묻는다.
     sallable_list = []
     total = 0 #판매대금이 될것이다. 반복할때마다 리셋되는게 맞겠지
@@ -112,7 +114,7 @@ while cnt<100:
                 if water_tank[w][2]:
                     cnt_full_index.append(w)
 
-            print(f"cnt_full_index{cnt_full_index} ")
+            # print(f"cnt_full_index{cnt_full_index} ")
 
             # 삭제를 위해 역순으로 뒤집는다.
             cnt_full_index.reverse()
@@ -125,12 +127,25 @@ while cnt<100:
 
 
     if user_input =="상태":
-        print(f"현재 수조 상태입니다.")
-        for w in water_tank:
-            print(f"물고기 종류:{w[0]}, 물고기의 성장상태 :{w[1]}")
+        f_go_cnt=0
+        f_do_cnt=0
+        f_ch_cnt=0
+        print(f"현재 수조, 소지금액 상태입니다. \t 소지금 {money}원 ")
+        # for w in water_tank:
+        #     if w[0] == "고등어":
+        #         f_go_cnt +=1
+        #     if w[0] == "도미":
+        #         f_do_cnt +=1
+        #     if w[0] == "참치":
+        #         f_ch_cnt +=1
+        # print(f"물고기 종류:{w[0]}, 물고기의 성장상태 :{w[1]}")
+        # print(f"물고기 종류:{w[0]}, 물고기의 성장상태 :{w[1]}")
+        # print(f"물고기 종류:{w[0]}, 물고기의 성장상태 :{w[1]}")
 
     if user_input == "":
-        print(f"턴을 종료합니다. 현재 돈은 {money}원이 있습니다.")
+
+        print(f"턴을 종료합니다. ===================")
+        print(f"현재 턴수 {cnt} \t 소지금{money}  \t 목표금액 {goal}")
 
         for w in water_tank:
             w[1] = w[1] + 1
