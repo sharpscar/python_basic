@@ -23,7 +23,7 @@ while cnt<100:
 
     user_input = input("입력 예시> 구매, 상태, 엔터 ) ")
 
-    #유저의 선택이 사기
+    #유저의 선택이 사기+
     if user_input == "구매":
         print(f"현재 자산은 {money} 입니다.")
         select_fish  = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000) 숫자만 입력하세요 ")
