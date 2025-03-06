@@ -37,7 +37,7 @@ status = {
 status = {
     'water_tank': [],
     'account': 100,
-    'fish_info': [],
+    'fish_info': ['',0,0,0], # [어종,마릿수,가격,총가격]
     'wt_count': 1,
     'pollution': 100,
     'simple_wt_info': {
@@ -62,30 +62,34 @@ def get_wt_empty_space(status):
 
 
 def buy_fish(status):
+    f_select_fish = 0
+    f_quantity = 0
+    print(status.items())
     status['water_tank'] = []
     status['account'] = account
-    print(f"현재 자산은 {status[account]} 입니다.")
-    select_fish = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000) 숫자만 입력하세요 ")
-    if not select_fish.isdigit():
+    print(f"현재 자산은 {status['account']} 입니다.")
+    f_select_fish = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000) 숫자만 입력하세요 ")
+    if not f_select_fish.isdigit():
         print("숫자만 입력하세요")
-        select_fish = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000) 숫자만 입력하세요 ")
+        f_select_fish = input("구매할 물고기 선택 1.고등어(10), 2.도미(100), 3.참치(1000) 숫자만 입력하세요 ")
     try:
-        status['fish_info'][1] = int(input("몇마리 구매?"))
+        f_quantity = int(input("몇마리 구매?"))
     except:
         print("숫자입력")
         status['fish_info'][1] = int(input("몇마리 구매?"))
-    if status['fish_info'][1] > 11:
+    if f_quantity > 11:
         print("10마리 이상은 안됩니다.")
-        status['fish_info'][1] = int(input("몇마리 구매?"))
+        quantity = int(input("몇마리 구매?"))
 
-    if select_fish == '1':
+    # 구매하려는 물고기 정보 status['fish_info'] = [어종,마릿수,가격,총가격]
+    if f_select_fish == '1':
         # status['fish_info'] = [어종,마릿수,가격,총가격]
         status['fish_info'][0] = '고등어'
         status['fish_info'][2]  = 10
-    elif select_fish == '2':
+    elif f_select_fish == '2':
         status['fish_info'][0] = '도미'
         status['fish_info'][2] = 100
-    elif select_fish == '3':
+    elif f_select_fish == '3':
         status['fish_info'][0] = '참치'
         status['fish_info'][2] = 1000
     else:
@@ -94,7 +98,7 @@ def buy_fish(status):
         status['fish_info'][2] = 10
 
     # 구매 조건에 부합하면 구매 처리 1.현재 자산, 2 수조 상태
-
+    status['fish_info'][1] =f_quantity
     # 총액 = 생선가격 * 생선마릿수
     status['fish_info'][3] = status['fish_info'][2] * status['fish_info'][1]
 
@@ -104,7 +108,7 @@ def buy_fish(status):
     # 기본 수조는 10 - 빈공간이 구매하려는 고기수보다 클때만 구매가능
     if is_empty_space :
         if status['fish_info'][3] <= status['account']:
-            #[어종,마릿수,가격,총가격]
+            # [어종,마릿수,가격,총가격]
             for q in range(status['fish_info'][1]):
                 # 수조에 들어가는 물고기 정보는 ['어종',포만도:int,'판매가능여부']이다. fish 정보 프로퍼티와 혼동되면 큰일남
                 status['water_tank'].append([status['fish_info'][0], 0, False])
@@ -115,18 +119,52 @@ def buy_fish(status):
     # 총 유저가 선택한 물고기종류*수량 = 지불하려는 비용
 
 while cnt<100:
-
-    user_input = input("입력 예시> 구매,상태, 먹이(주기), 수질(관리), 수조(구매) ) ")
-
+    user_input = input("입력 명령어) 구매(하기), 상태(표시), 먹이(주기), 수질(관리), 수조(구매)  ")
     if status['account'] < -2000:
         print("돈이 부족하여 게임이 종료되었습니다. ")
         break
 
+    '''
+        턴마다 체크해야하는것 
+        1.스테이터스내의 워터탱크와 간단한 수조정보를 동기화 하는 작업
+        2.수조 오염도가 -10 변화
+            2-1 턴마다 수조의 오염도가 50,40,30 일때 발생하는 폐사현상 발생   
+        3. account 정보가 마이너스일땐 10%의 이자발생 account =accont-(account * 0.1)
+        4. account 가  -2000이 되면 game over 
+
+        먹이주기와 수조 청소는 턴을 넘긴다. 
+        먹이주기는 간단한 수조정보의 물고기 마릿수에따른 비용 산정
+        수조 청소는 수조 오염도가 100으로 리셋 / account - (스테이터스['wt_count']* 100
+
+        수조구매 개당 1000원 / 스테이터스 ['wt_count'] = 스테이터스['wt_count'] + 1
+
+
+        '''
+
     if user_input == "구매":
-        #구매
+        #구매하기
         status = buy_fish(status)
 
-    
+    if user_input == "상태":
+        #상태보기
+        go_cnt= status['simple_wt_info']['고등어']
+        print(f"물고기 종류:고등어는 {go_cnt}마리{"🐡"*go_cnt}")
+        do_cnt = status['simple_wt_info']['도미']
+        print(f"물고기 종류:고등어는 {do_cnt}마리{"🐡"*do_cnt}")
+        ch_cnt = status['simple_wt_info']['참치']
+        print(f"물고기 종류:고등어는 {ch_cnt}마리{"🐡"*ch_cnt}")
+
+
+        '''
+        'simple_wt_info': {
+        '고등어': 0,
+        '도미': 0,
+        '참치': 0
+    }
+        '''
+
+
+
     # if user_input == "먹이":
     #     #먹이주기
     #     pass
