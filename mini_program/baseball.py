@@ -2,9 +2,10 @@ import random
 ran_list = []
 # 랜덤 정수 3개 리스트 생성
 num = set()
-# 3개의 숫자가 중복되지 않도록 생성
+# 3개의 숫자가 중복되지 않도록 생성 set은 append말고 add 쓴다.
 while len(num)<3:
     num.add(random.randint(1,9))
+
 ran_list = list(num)
 
 def get_input():
