@@ -83,7 +83,8 @@ def get_input(game_info=None):
     if user_input == '포기':
         result = giveup_game(game_info)
         if result :
-            main_scene(result)
+            # 왜 매개변수로 result가 필요한가. 만약 없애고 포기를 2번 할경우 전적 보기를 했을때 터진다. . 43라인 string indices must be integers, not 'str'
+            main_scene(result)#result
 
     user_input_list = user_input.split(",")
     if len(user_input_list) > 4:
@@ -131,7 +132,6 @@ def game_over(record):
     # 끝나기전 기록을 한다.
     rec_result = set_record(record)
 
-
     #기록을 하고나면 뭘 반환해야할까? 기록 정보를 반환해보자 다시하기 ->reset_game() : pc의 랜덤 리스트를 갱신
     is_continue = input("게임이 종료되었습니다. 게임을 계속 하시겠습니까? y/n")
 
@@ -144,8 +144,6 @@ def game_over(record):
         main_scene(rec_result)
 
     return rec_result
-
-
 
 
 def start_game(game_info):
@@ -191,7 +189,7 @@ def start_game(game_info):
             # 유저가 선택한 난이도를 가져온다.
             print("아쉽게 됐네요 좀더 연습을 하셔야겠네요.")
 
-            game_info['difficulty'] = game_info['difficulty']
+            # game_info['difficulty'] = game_info['difficulty']
             game_info['record'] = '패'
             record_result = game_over(game_info)
             print(f"게임이 패배로 끝남 {record_result}")

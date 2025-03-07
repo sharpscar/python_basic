@@ -33,13 +33,14 @@ status = {
     
 }
 
+
 '''
 status = {
-    'water_tank': [],
-    'account': 100,
-    'fish_info': ['',0,0,0], # [어종,마릿수,가격,총가격]
-    'wt_count': 1,
-    'pollution': 100,
+                'water_tank': [],
+                'account': 100,
+                'fish_info': ['',0,0,0], # [어종,마릿수,가격,총가격] #<< 내 것이 아니다.
+                'wt_count': 1,
+                'pollution': 100,
     'simple_wt_info': {
         '고등어': 0,
         '도미': 0,
@@ -145,10 +146,19 @@ while cnt<100:
         #구매하기
         status = buy_fish(status)
 
-    if user_input == "상태":
-        #상태보기
-        go_cnt= status['simple_wt_info']['고등어']
-        print(f"물고기 종류:고등어는 {go_cnt}마리{"🐡"*go_cnt}")
+    elif user_input == "상태":
+
+
+        # 상태를 보여주려면 동기화를 해야한다.
+
+        # 상태보기 리스트에 ['고등어',0,0,0] 그럼 status['water_tank'][0]== '고등어'
+        print(status['simple_wt_info'])
+        for i in status['water_tank']:
+            if i[0] == '고등어':
+                status['simple_wt_info']['고등어'] = status['simple_wt_info']['고등어']+1
+        print(status['simple_wt_info'])
+        # go_cnt= status['water_tank']['고등어']
+        # print(f"물고기 종류:고등어는 {go_cnt}마리{"🐡"*go_cnt}")
         do_cnt = status['simple_wt_info']['도미']
         print(f"물고기 종류:고등어는 {do_cnt}마리{"🐡"*do_cnt}")
         ch_cnt = status['simple_wt_info']['참치']
